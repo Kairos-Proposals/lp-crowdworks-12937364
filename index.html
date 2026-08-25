@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairos × SUPERNOVA. | ライブ配信プラットフォーム再構築プロジェクト提案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-base:#0A0E27;
+    --bg-sub:#131A3A;
+    --bg-card:#171E42;
+    --magenta:#FF3D7F;
+    --cyan:#00E5FF;
+    --orange:#FFA23D;
+    --text-light:#F2F4FA;
+    --text-muted:#9AA3C7;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-base);
+    color:var(--text-light);
+    font-family:'Noto Sans JP', sans-serif;
+    line-height:1.8;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-weight:900;
+    letter-spacing:0.02em;
+  }
+  .en{
+    font-family:'Space Grotesk', sans-serif;
+  }
+  a{color:inherit;}
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,61,127,0.18), transparent 45%),
+      radial-gradient(circle at 80% 30%, rgba(0,229,255,0.16), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(255,162,61,0.10), transparent 55%),
+      var(--bg-base);
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image: radial-gradient(circle at 50% 40%, black 10%, transparent 70%);
+    pointer-events:none;
+  }
+  .globe-ring{
+    position:absolute;
+    top:50%; left:50%;
+    width:900px; height:900px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    border:1px solid rgba(0,229,255,0.12);
+    pointer-events:none;
+  }
+  .globe-ring.r2{width:650px;height:650px; border-color:rgba(255,61,127,0.10);}
+  .globe-ring.r3{width:1150px;height:1150px; border-color:rgba(255,162,61,0.08);}
+
+  .lang-float{
+    position:absolute;
+    font-family:'Space Grotesk', sans-serif;
+    color:rgba(242,244,250,0.18);
+    font-size:14px;
+    letter-spacing:0.15em;
+  }
+
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(255,61,127,0.12);
+    border:1px solid rgba(255,61,127,0.4);
+    color:var(--magenta);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:12px;
+    letter-spacing:0.15em;
+    padding:7px 16px;
+    border-radius:100px;
+    margin-bottom:28px;
+    width:fit-content;
+  }
+  .badge .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--magenta);
+    box-shadow:0 0 8px var(--magenta);
+    animation:pulse 1.4s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1; transform:scale(1);}
+    50%{opacity:0.4; transform:scale(0.8);}
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 24px;
+    width:100%;
+  }
+  .hero h1{
+    font-size:clamp(32px, 5.6vw, 64px);
+    line-height:1.35;
+    margin-bottom:24px;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(90deg, var(--cyan), var(--magenta));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero p.lead{
+    color:var(--text-muted);
+    font-size:17px;
+    max-width:620px;
+    margin-bottom:36px;
+  }
+  .wave{
+    display:flex;
+    align-items:flex-end;
+    gap:4px;
+    height:40px;
+    margin-bottom:36px;
+  }
+  .wave span{
+    display:block;
+    width:4px;
+    background:linear-gradient(180deg, var(--cyan), var(--magenta));
+    border-radius:2px;
+    animation:bar 1.2s ease-in-out infinite;
+  }
+  .wave span:nth-child(1){height:15px; animation-delay:0s;}
+  .wave span:nth-child(2){height:32px; animation-delay:0.1s;}
+  .wave span:nth-child(3){height:10px; animation-delay:0.2s;}
+  .wave span:nth-child(4){height:38px; animation-delay:0.3s;}
+  .wave span:nth-child(5){height:22px; animation-delay:0.4s;}
+  .wave span:nth-child(6){height:34px; animation-delay:0.5s;}
+  .wave span:nth-child(7){height:12px; animation-delay:0.6s;}
+  .wave span:nth-child(8){height:28px; animation-delay:0.7s;}
+  .wave span:nth-child(9){height:18px; animation-delay:0.8s;}
+  .wave span:nth-child(10){height:36px; animation-delay:0.9s;}
+  @keyframes bar{
+    0%,100%{transform:scaleY(0.4);}
+    50%{transform:scaleY(1);}
+  }
+
+  .hero-foot{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    align-items:center;
+  }
+  .from-tag{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:13px;
+    color:var(--text-muted);
+    border-left:2px solid var(--cyan);
+    padding-left:12px;
+  }
+  .from-tag b{color:var(--text-light);}
+
+  /* section common */
+  section{
+    padding:100px 0;
+    position:relative;
+  }
+  .section-tag{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:13px;
+    letter-spacing:0.2em;
+    color:var(--cyan);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .section-title{
+    font-size:clamp(24px,3.6vw,36px);
+    margin-bottom:20px;
+  }
+
+  /* ===== UNDERSTANDING ===== */
+  .understanding{
+    background:var(--bg-sub);
+    border-top:1px solid rgba(255,255,255,0.05);
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+  .understanding-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:56px;
+    align-items:start;
+  }
+  .quote-block{
+    font-size:clamp(20px,2.6vw,26px);
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-weight:700;
+    line-height:1.7;
+    color:var(--text-light);
+    position:relative;
+    padding-left:24px;
+    border-left:3px solid var(--magenta);
+  }
+  .understanding-list{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .u-item{
+    background:var(--bg-card);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:12px;
+    padding:18px 20px;
+    font-size:14.5px;
+    color:var(--text-muted);
+  }
+  .u-item b{
+    color:var(--text-light);
+    display:block;
+    margin-bottom:4px;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:15.5px;
+  }
+
+  /* ===== VALUE ===== */
+  .value-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+    margin-top:48px;
+  }
+  .value-card{
+    background:linear-gradient(160deg, var(--bg-card), var(--bg-sub));
+    border:1px solid rgba(255,255,255,0.07);
+    border-radius:16px;
+    padding:32px 26px;
+    position:relative;
+    overflow:hidden;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .value-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(0,229,255,0.4);
+  }
+  .value-card::after{
+    content:"";
+    position:absolute;
+    top:-40%; right:-40%;
+    width:160px; height:160px;
+    background:radial-gradient(circle, rgba(0,229,255,0.15), transparent 70%);
+    border-radius:50%;
+  }
+  .value-num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:13px;
+    color:var(--magenta);
+    letter-spacing:0.15em;
+    margin-bottom:14px;
+  }
+  .value-card h3{
+    font-size:19px;
+    margin-bottom:12px;
+    line-height:1.5;
+  }
+  .value-card p{
+    font-size:14px;
+    color:var(--text-muted);
+  }
+  .tech-pills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:16px;
+  }
+  .tech-pills span{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:11px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:4px 10px;
+    border-radius:100px;
+    color:var(--text-muted);
+  }
+
+  /* ===== PROCESS ===== */
+  .process{
+    background:var(--bg-sub);
+  }
+  .timeline{
+    margin-top:56px;
+    position:relative;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:22px;
+    top:10px;
+    bottom:10px;
+    width:2px;
+    background:linear-gradient(180deg, var(--magenta), var(--cyan), var(--orange));
+  }
+  .t-item{
+    position:relative;
+    padding-left:70px;
+    margin-bottom:44px;
+  }
+  .t-item:last-child{margin-bottom:0;}
+  .t-item::before{
+    content:"";
+    position:absolute;
+    left:14px;
+    top:4px;
+    width:17px; height:17px;
+    border-radius:50%;
+    background:var(--bg-sub);
+    border:3px solid var(--cyan);
+  }
+  .t-phase{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:12px;
+    color:var(--orange);
+    letter-spacing:0.15em;
+    margin-bottom:6px;
+  }
+  .t-item h4{
+    font-size:19px;
+    margin-bottom:8px;
+  }
+  .t-item p{
+    color:var(--text-muted);
+    font-size:14.5px;
+    max-width:640px;
+  }
+
+  /* ===== CLOSING ===== */
+  .closing{
+    text-align:center;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,61,127,0.15), transparent 60%),
+      var(--bg-base);
+  }
+  .closing h2{
+    font-size:clamp(26px,4vw,42px);
+    margin-bottom:20px;
+  }
+  .closing p{
+    color:var(--text-muted);
+    max-width:560px;
+    margin:0 auto 40px;
+    font-size:15px;
+  }
+  .cta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:linear-gradient(90deg, var(--magenta), var(--orange));
+    color:#0A0E27;
+    font-weight:700;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    padding:16px 40px;
+    border-radius:100px;
+    text-decoration:none;
+    font-size:16px;
+    box-shadow:0 10px 30px rgba(255,61,127,0.3);
+    transition:transform .25s ease;
+  }
+  .cta-btn:hover{transform:translateY(-3px);}
+  .closing-meta{
+    margin-top:32px;
+    display:flex;
+    justify-content:center;
+    gap:32px;
+    flex-wrap:wrap;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:13px;
+    color:var(--text-muted);
+  }
+
+  footer{
+    padding:32px 24px;
+    text-align:center;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:12px;
+    color:var(--text-muted);
+    border-top:1px solid rgba(255,255,255,0.06);
+  }
+
+  @media (max-width: 860px){
+    .understanding-grid{grid-template-columns:1fr; gap:36px;}
+    .value-grid{grid-template-columns:1fr;}
+    section{padding:70px 0;}
+    .quote-block{padding-left:16px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="globe-ring"></div>
+  <div class="globe-ring r2"></div>
+  <div class="globe-ring r3"></div>
+  <span class="lang-float" style="top:14%; left:8%;">LIVE</span>
+  <span class="lang-float" style="top:22%; right:10%;">直播中</span>
+  <span class="lang-float" style="bottom:20%; left:12%;">라이브</span>
+  <span class="lang-float" style="bottom:14%; right:14%;">TRỰC TIẾP</span>
+  <span class="lang-float" style="top:50%; left:4%;">EN DIRECTO</span>
+
+  <div class="hero-content">
+    <div class="badge"><span class="dot"></span> PROPOSAL FROM KAIROS</div>
+    <h1>配信は、待ってくれない。<br><span class="accent">だから私たちは、動きながら設計する。</span></h1>
+    <p class="lead">
+      SUPERNOVA.様が育ててきたライブ配信プラットフォームを、React Native / Expo を基盤に再構築する——。
+      Kairosは、この「動いているものを止めずに作り直す」プロジェクトに、
+      AI駆動開発と実装力の両輪で伴走するご提案をいたします。
+    </p>
+    <div class="wave">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="hero-foot">
+      <div class="from-tag">Proposed by <b>Kairos</b> — Web制作・システム開発チーム</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== UNDERSTANDING ===== -->
+<section class="understanding">
+  <div class="wrap">
+    <div class="section-tag">01 / Understanding</div>
+    <h2 class="section-title">この募集の裏にある、本当の課題を理解しています。</h2>
+    <div class="understanding-grid">
+      <div class="quote-block">
+        「未経験でも良い」のではなく、<br>
+        「学習意欲と基礎力を、AIツールで即戦力に変換できる開発体制」を、<br>
+        本気で作りたい——私たちはそう読み解きました。
+      </div>
+      <div class="understanding-list">
+        <div class="u-item">
+          <b>単なる保守ではなく、構造改善が主戦場</b>
+          既存のReact NativeアプリをExpo基盤で再設計する作業は、動いているプロダクトを壊さずに土台から組み替える、高い設計判断力が求められる仕事です。
+        </div>
+        <div class="u-item">
+          <b>Cursorを前提にしたチーム作りへの挑戦</b>
+          AI開発ツールを前提とした開発フローは、まだ多くの組織で「型」が確立されていません。ここに再現性を持たせることが成功の鍵だと理解しています。
+        </div>
+        <div class="u-item">
+          <b>グローバル配信特有の複雑さ</b>
+          リアルタイム配信・通話・7言語自動翻訳・ポイント決済——多国籍ユーザーを支える機能群は、単一の技術領域では完結しません。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VALUE ===== -->
+<section class="value">
+  <div class="wrap">
+    <div class="section-tag">02 / What Kairos Brings</div>
+    <h2 class="section-title">Kairosがこのプロジェクトに提供できる価値</h2>
+
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-num">VALUE / 01</div>
+        <h3>React Native → Expo 移行の設計知見</h3>
+        <p>既存資産を活かしながら段階的にリファクタリングする移行計画を立案。ビッグバン書き換えではなく、機能単位でリスクを分散した再構築を実現します。</p>
+        <div class="tech-pills"><span>React Native</span><span>Expo</span><span>TypeScript</span></div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-num">VALUE / 02</div>
+        <h3>Cursor前提のAI駆動開発フローの型化</h3>
+        <p>AIツールを「個人の使い方」から「チームの標準プロセス」へ昇華。Junior〜Midメンバーの立ち上がりを早め、実務経験の浅さをボトルネックにしません。</p>
+        <div class="tech-pills"><span>Cursor</span><span>Prompt設計</span><span>レビュー基盤</span></div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-num">VALUE / 03</div>
+        <h3>Rails / GraphQL バックエンド連携力</h3>
+        <p>Ruby on Rails・GraphQL・MySQL・Redisという既存スタックを踏襲しつつ、フロントとの結合部分を疎結合に保つAPI設計で保守性を確保します。</p>
+        <div class="tech-pills"><span>Rails</span><span>GraphQL</span><span>MySQL</span><span>Redis</span></div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-num">VALUE / 04</div>
+        <h3>リアルタイム通信・多言語基盤の実装対応</h3>
+        <p>Agora RTCによる音声/映像通話、BytePlus SMS、7言語自動翻訳など、グローバル配信特有の外部サービス連携もフロント〜インフラ横断で対応します。</p>
+        <div class="tech-pills"><span>Agora RTC</span><span>BytePlus</span><span>AWS</span></div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-num">VALUE / 05</div>
+        <h3>リモート前提の運用・ドキュメント体制</h3>
+        <p>Slack / Notion / Trello / GitHubを軸に、完全リモートでも要件整理から設計、実装、リリース後の保守までを可視化しながら進行します。</p>
+        <div class="tech-pills"><span>Notion</span><span>Trello</span><span>GitHub</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="process">
+  <div class="wrap">
+    <div class="section-tag">03 / How We Move</div>
+    <h2 class="section-title">進め方のイメージ</h2>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-phase">STEP 00 — 選考・すり合わせ</div>
+        <h4>ご提案内容・体制のご説明とオンライン面談</h4>
+        <p>Google Meetにて約15分、担当領域・稼働条件・技術スタックの理解度をすり合わせます。事前のご質問も歓迎です。</p>
+      </div>
+      <div class="t-item">
+        <div class="t-phase">STEP 01 — Trial（契約開始から1ヶ月）</div>
+        <h4>要件整理・技術検討・小規模タスクでの実証</h4>
+        <p>既存React Nativeアプリの構造を把握し、Expo移行に向けた技術検討と設計方針をすり合わせながら、実装で相互理解を深めます。</p>
+      </div>
+      <div class="t-item">
+        <div class="t-phase">STEP 02 — 初期契約（トライアル後3ヶ月）</div>
+        <h4>フロントエンドを中心とした再構築の本格着手</h4>
+        <p>設計への参加からフロントエンド開発、バックエンド連携、インフラ運用補助まで、経験と得意領域に応じて役割を調整しながら進行します。</p>
+      </div>
+      <div class="t-item">
+        <div class="t-phase">STEP 03 — 継続フェーズ</div>
+        <h4>リリース後の保守・運用・機能拡張へ</h4>
+        <p>双方合意のもと契約を延長し、ライブ配信プラットフォームの成長に合わせた継続的な改善・拡張フェーズへ移行します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLOSING ===== -->
+<section class="closing">
+  <div class="wrap">
+    <div class="section-tag" style="justify-content:center; display:flex;">04 / Next Action</div>
+    <h2>この配信を、次のステージへ。<br>まずは15分、お話しさせてください。</h2>
+    <p>
+      自己紹介・ポートフォリオ・稼働条件など、応募に必要な情報はすでに整っています。
+      Kairosとして、体制・進め方・技術面のご質問にもその場でお答えします。
+    </p>
+    <a class="cta-btn" href="#">オンライン面談を申し込む →</a>
+    <div class="closing-meta">
+      <span>MEETING : Google Meet / 約15分</span>
+      <span>REPLY : 1〜2営業日以内</span>
+      <span>WORK : 完全リモート</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Kairos — Web制作・システム開発チーム ｜ Proposal for SUPERNOVA. Live Streaming Platform Project
+</footer>
+
+</body>
+</html>
